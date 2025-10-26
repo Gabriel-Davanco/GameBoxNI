@@ -1,0 +1,134 @@
+/* ======== SEÇÃO: Weekly Games ======== */
+.WGamesContainer {
+  width: 100%; /* Já está bom, mas reforçado */
+  background-color: #14181c;
+  color: #fff;
+  text-align: center;
+  padding: 60px 0; /* Padding vertical não afeta largura */
+}
+
+.WGamesContainer h1 {
+  font-size: 2.2em;
+  margin-bottom: 1.5em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ffcc00;
+}
+
+.gamesSub {
+  width: 100%; /* Mudado de max-width: 100% para garantir 100% sem overflow */
+  max-width: 100%; /* Mantém, mas agora com width: 100% para consistência */
+}
+
+.WGames {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2em;
+}
+
+.WGames img {
+  width: 200px; /* Mantido, mas adicione max-width para segurança */
+  max-width: 100%; /* Garante que não estrapole o container pai */
+  height: 300px;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.WGames img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
+}
+
+/* ======== SEÇÃO: Recent Reviews ======== */
+.RecentReviewsContainer {
+  width: 100%;
+  background-color: #14181c;
+  color: #fff;
+  padding: 60px 0;
+}
+
+.RecentReviewsContainer h1 {
+  text-align: center;
+  margin-bottom: 2.5em;
+  font-size: 2.2em;
+  text-transform: uppercase;
+  color: #ffcc00;
+  letter-spacing: 1.5px;
+}
+
+.RecentReview {
+  width: 100%; /* Mudado para 100% para ocupar a largura sem estrapolar */
+  max-width: 55%; /* Mantido, mas agora com width: 100% para centralizar */
+  margin: 0 auto 50px auto; /* Centraliza automaticamente */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2em;
+  background-color: #14181c;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.RecentReview:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(255, 255, 0, 0.2);
+}
+
+.RecentReview img {
+  width: 180px;
+  max-width: 100%; /* Adicionado para evitar overflow */
+  height: 260px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.ReviewText {
+  width: 100%; /* Garante que ocupe a largura disponível */
+  max-width: 600px; /* Mantido, mas agora com width: 100% */
+  text-align: left;
+}
+
+.ReviewText h2 {
+  margin: 0 0 0.4em 0;
+  font-size: 1.6em;
+  color: #ffcc00;
+}
+
+.ReviewText .author {
+  font-style: italic;
+  margin-bottom: 1em;
+  color: #bbb;
+}
+
+.ReviewText .content {
+  line-height: 1.6em;
+  font-size: 1em;
+  color: #ddd;
+}
+
+/* ======== RESPONSIVIDADE ======== */
+@media (max-width: 768px) {
+  .WGames img {
+    width: 150px;
+    max-width: 100%; /* Reforçado */
+    height: 220px;
+  }
+
+  .RecentReview {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 90%; /* Ajustado para telas menores */
+  }
+
+  .ReviewText {
+    max-width: 100%; /* Garante que não estrapole */
+  }
+}

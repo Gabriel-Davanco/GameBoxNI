@@ -1,0 +1,72 @@
+/* .background {
+  width: 100%;
+  height: 90vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+} 
+*/
+.carousel-container {
+  width: 100%;
+  height: 90vh; /* altura fixa do carrossel */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  position: relative; /* necessário para os botões ficarem sobre a imagem */
+  background-color: #111;
+}
+
+.carousel-imagem {
+  width: 100%;
+  height: 100%;
+  object-fit: contain ;
+  object-position: top;     /* mostra a parte superior */
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  z-index: 0;
+}
+
+.carousel-imagem.atual{
+  opacity: 1;
+  z-index: 0;
+}
+
+/* Botões de navegação */
+.btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: rgb(255, 255, 255);
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 2rem;
+  z-index: 1; /* garante que fique acima da imagem */
+}
+
+.anterior {
+  left: 10px;
+}
+
+.proximo {
+  right: 10px;
+}
