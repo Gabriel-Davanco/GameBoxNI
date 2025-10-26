@@ -1,0 +1,43 @@
+.profile-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.profile-card {
+  width: 100%;
+  max-width: 720px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.profile-card.error {
+  border-color: rgba(255, 0, 0, 0.25);
+  background: #fff5f5;
+}
+
+.profile-card h2 {
+  margin: 0 0 16px;
+  font-size: 22px;
+}
+
+.profile-field {
+  display: flex;
+  gap: 12px;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.profile-field .label {
+  width: 120px;
+  color: #666;
+}
+
+.profile-field .value {
+  font-weight: 600;
+}

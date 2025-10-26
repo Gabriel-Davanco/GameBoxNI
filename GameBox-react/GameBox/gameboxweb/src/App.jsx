@@ -5,6 +5,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Carousel from './components/Carousel'
+import UserProfile from './components/UserProfile'
 import Body from './components/Body'
 import Catalogo from './pages/Catalogo'
 import './App.css'
@@ -17,15 +18,17 @@ function App() {
       <Header />
       <Routes>
         <Route
-        path="/"
-        element={
-          <>
-            <Carousel />
-            <Body />
-          </>
-        }
-      />
-      <Route path="/catalogo" element={<Catalogo />} />
+          path="/"
+          element={
+            <>
+              <Carousel />
+              <Body />
+            </>
+          }
+        />
+        <Route path="/catalogo" element={<Catalogo />} />
+        <Route path="/perfil" element={<UserProfile />} />
+
       </Routes>
       {/*<div>
         <a href="https://vite.dev" target="_blank">
