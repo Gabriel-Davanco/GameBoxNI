@@ -38,9 +38,35 @@
   cursor: pointer;
 }
 
-.WGames img:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
+/* Novo Estilo para o Card Container */
+.CardJogo {
+  width: 200px; /* Largura fixa do container */
+  max-width: 100%;
+  border-radius: 12px;
+  background-color: #1e242a; /* Cor de fundo sutil para o card */
+  overflow: hidden; /* Garante que tudo fique dentro do border-radius */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Sombra mais profunda */
+  transition: all 0.3s ease;
+  cursor: pointer; /* Move o cursor para o container inteiro */
+  display: flex; /* Para centralizar o conteúdo, se necessário */
+  flex-direction: column;
+}
+
+.CardInfo{
+  padding-top: 1em;
+}
+
+.CardJogo:hover {
+  transform: translateY(-8px); /* Levanta mais para um efeito mais dramático */
+  box-shadow: 0 15px 30px rgba(255, 204, 0, 0.3); /* Sombra amarela mais intensa */
+}
+
+/* Ajuste na Imagem */
+.CardImage {
+  width: 100%; /* Ocupa 100% da largura do .CardJogo (200px) */
+  height: 300px; /* Mantido */
+  object-fit: cover;
+  border-radius: 0; /* Remove o border-radius da imagem para dar ao container */
 }
 
 /* ======== SEÇÃO: Recent Reviews ======== */

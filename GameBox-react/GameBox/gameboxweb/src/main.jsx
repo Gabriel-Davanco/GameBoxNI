@@ -1,15 +1,16 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
-import Header from './components/Header'
-import Carousel from './components/Carousel.jsx'
-import Body from './components/Body.jsx'
+//import Header from './components/Header'
+//import Carousel from './components/Carousel.jsx'
+//import Body from './components/Body.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Header />
-    <Carousel/>
-    <Body/>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>
 )

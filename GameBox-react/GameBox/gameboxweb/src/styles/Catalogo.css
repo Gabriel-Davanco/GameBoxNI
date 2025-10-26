@@ -1,0 +1,111 @@
+.catalogo-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #14181c;
+  color: #fff;
+  padding-top: 120px;
+  padding-bottom: 80px;
+  text-align: center;
+}
+
+.catalogo-container h1 {
+  font-size: 2.5em;
+  color: #ffcc00;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1.5em;
+}
+
+/* Barra de pesquisa */
+.barra-pesquisa {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.barra-pesquisa input {
+  width: 300px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1em;
+  outline: none;
+  background-color: #1e2329;
+  color: #fff;
+}
+
+.barra-pesquisa input::placeholder {
+  color: #aaa;
+}
+
+.barra-pesquisa button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #ffcc00;
+  color: #14181c;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.barra-pesquisa button:hover {
+  background-color: #ffd633;
+}
+
+/* Grade de jogos */
+.grid-jogos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2em;
+  padding: 0 40px;
+}
+
+.card-jogo {
+  background-color: #1b1f24;
+  border-radius: 12px;
+  width: 200px;
+  padding: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.card-jogo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 0, 0.3);
+}
+
+.card-jogo img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.card-jogo h3 {
+  margin-top: 10px;
+  font-size: 1em;
+  color: #ffcc00;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .barra-pesquisa input {
+    width: 220px;
+  }
+
+  .grid-jogos {
+    gap: 1.5em;
+  }
+
+  .card-jogo {
+    width: 160px;
+  }
+
+  .card-jogo img {
+    height: 220px;
+  }
+}

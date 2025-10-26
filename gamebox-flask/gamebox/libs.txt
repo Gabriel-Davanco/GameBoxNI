@@ -1,0 +1,5 @@
+pip install flask
+pip install flask_login
+pip install flask_cors
+pip install models
+pip install flask_sqlalchemy
