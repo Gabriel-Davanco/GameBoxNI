@@ -6,7 +6,7 @@ from models import Usuario, Jogos, Biblioteca
 import json
 
 app = Flask(__name__)
-app.secret_key = "brunao"  # ⚠️ Em produção, use variável de ambiente!
+app.secret_key = "brunao"  # ⚠️ muda essa poha pelo amor de deus kkkkkk
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 db.init_app(app)
 CORS(app, origins=["http://localhost:5173"])
