@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "../styles/GameActionButton.css";
 
 // Status possíveis (você pode expandir esta lista)
 const STATUS_OPTIONS = [
@@ -70,7 +71,7 @@ function GameActionButton({ gameId, currentStatus, onActionSuccess }) {
     const handleStatusChange = async (e) => {
         const newStatus = e.target.value;
         setStatus(newStatus);
-        
+
         // Se já estiver na biblioteca, atualiza o status
         if (isInLibrary) {
             await handleRequest(
@@ -85,26 +86,50 @@ function GameActionButton({ gameId, currentStatus, onActionSuccess }) {
     };
 
     return (
-        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+        <div className="game-action-container">
             {isInLibrary ? (
                 <>
-                    <select value={status} onChange={handleStatusChange} disabled={loading}>
+                    <select
+                        className="game-select"
+                        value={status}
+                        onChange={handleStatusChange}
+                        disabled={loading}
+                    >
                         {STATUS_OPTIONS.map(option => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
                         ))}
                     </select>
-                    <button onClick={handleRemoveGame} disabled={loading}>
+
+                    <button
+                        className="game-button"
+                        onClick={handleRemoveGame}
+                        disabled={loading}
+                    >
                         {loading ? 'Removendo...' : 'Remover da Biblioteca'}
                     </button>
                 </>
             ) : (
                 <>
-                    <select value={status} onChange={(e) => setStatus(e.target.value)} disabled={loading}>
+                    <select
+                        className="game-select"
+                        value={status}
+                        onChange={(e) => setStatus(e.target.value)}
+                        disabled={loading}
+                    >
                         {STATUS_OPTIONS.map(option => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
                         ))}
                     </select>
-                    <button onClick={handleAddGame} disabled={loading}>
+
+                    <button
+                        className="game-button"
+                        onClick={handleAddGame}
+                        disabled={loading}
+                    >
                         {loading ? 'Adicionando...' : 'Adicionar à Biblioteca'}
                     </button>
                 </>

@@ -122,6 +122,22 @@ def listar_jogos():
         print(f"Erro ao listar jogos: {e}") 
         # Retorna um erro 500 com uma mensagem de erro genérica para o frontend
         return jsonify({"success": False, "message": "Erro interno do servidor ao buscar jogos"}), 500
+    
+# ----------------- ORDENAR JOGOS -----------------
+@app.route('/api/jogos/recentes', methods=['GET'])
+def get_jogos_recentes():
+    jogos = Jogos.query.order_by(Jogos.id.desc()).limit(4).all()
+    jogos_data = []
+    for jogo in jogos:
+        jogos_data.append({
+            'id': jogo.id,
+            'nome_jogo': jogo.nome_jogo,
+            'ano_lancamento': jogo.ano_lancamento,
+            'plataforma': jogo.plataforma,
+            'avaliacao_media': jogo.avaliacao_media,
+            'image_url': getattr(jogo, 'image_url', None)
+        })
+    return jsonify(jogos_data)
 
 # ---------------- PESQUISAR JOGOS ----------------
 @app.route("/api/jogos/pesquisa", methods=["GET"])
