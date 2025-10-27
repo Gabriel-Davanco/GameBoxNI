@@ -139,6 +139,33 @@ def get_jogos_recentes():
         })
     return jsonify(jogos_data)
 
+#----- COLOCAR IMAGEM NOS JOGOS QUE NÃO TEM -----
+@app.route("/api/jogos/<int:jogo_id>/imagem", methods=["PUT"])
+def atualizar_imagem_jogo(jogo_id):
+    """Atualiza o campo image_url de um jogo específico"""
+    try:
+        data = request.get_json()
+        nova_url = data.get("image_url")
+
+        if not nova_url:
+            return jsonify({"success": False, "message": "A nova URL da imagem é obrigatória"}), 400
+
+        jogo = Jogos.query.get(jogo_id)
+        if not jogo:
+            return jsonify({"success": False, "message": "Jogo não encontrado"}), 404
+
+        jogo.image_url = nova_url
+        db.session.commit()
+        return jsonify({
+            "success": True,
+            "message": f"Imagem do jogo '{jogo.nome_jogo}' atualizada com sucesso!"
+        }), 200
+
+    except Exception as e:
+        db.session.rollback()
+        print("Erro ao atualizar imagem:", e)
+        return jsonify({"success": False, "message": "Erro interno ao atualizar imagem"}), 500
+
 # ---------------- PESQUISAR JOGOS ----------------
 @app.route("/api/jogos/pesquisa", methods=["GET"])
 def pesquisar_jogos():
