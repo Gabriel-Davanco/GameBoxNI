@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.secret_key = "brunao"  # troque em produção
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 
-# Cookies locais
+# ---------------- CONFIGURAÇÃO DE COOKIES ----------------
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 app.config["SESSION_COOKIE_SECURE"] = False
 
@@ -25,7 +25,7 @@ app.config.update(
 )
 
 
-db.init_app(app)
+db.init_app(app) #inicializa o banco de dados com a aplicação Flask
 
 # ---------------- CORS (compatível com Vite:5173) ----------------
 CORS(
@@ -274,7 +274,7 @@ def get_biblioteca():
             )
     return jsonify(out), 200
 
-
+# ---------------- ADICIONAR JOGO À BIBLIOTECA ----------------
 @app.route("/api/biblioteca/adicionar", methods=["POST"])
 @login_required
 def adicionar_jogo_biblioteca():
@@ -314,6 +314,7 @@ def adicionar_jogo_biblioteca():
         return jsonify({"erro": "Erro ao adicionar jogo à biblioteca"}), 500
 
 
+# ---------------- ATUALIZAR STATUS DE JOGO ----------------
 @app.route("/api/biblioteca/status/<int:jogo_id>", methods=["PUT"])
 @login_required
 def atualizar_status_jogo(jogo_id):
@@ -344,6 +345,7 @@ def atualizar_status_jogo(jogo_id):
         return jsonify({"erro": "Erro ao atualizar status"}), 500
 
 
+# ---------------- REMOVER JOGO DA BIBLIOTECA ----------------
 @app.route("/api/biblioteca/remover/<int:jogo_id>", methods=["DELETE"])
 @login_required
 def remover_jogo_biblioteca(jogo_id):

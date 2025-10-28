@@ -1,4 +1,3 @@
-// Exemplo de CardJogo.jsx (você deve adaptar as classes)
 function CardJogo({ jogo }) {
   return (
     <div className="CardJogo">

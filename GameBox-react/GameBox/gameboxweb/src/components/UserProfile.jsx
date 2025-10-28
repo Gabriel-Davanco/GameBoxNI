@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react';
 import '../styles/UserProfile.css';
 
+// Componente responsável por exibir o perfil do usuário logado.
+// Mostra informações básicas (nickname e email) e também a lista de jogos da biblioteca.
 function UserProfile() {
-    const [userData, setUserData] = useState(null);
-    const [library, setLibrary] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [userData, setUserData] = useState(null);// Estado para armazenar os dados do usuário (username, email, etc.)
+    const [library, setLibrary] = useState([]); // Estado para armazenar os jogos da biblioteca do usuário
+    const [loading, setLoading] = useState(true);// Controle de carregamento (evita renderizar antes das requisições terminarem)
+    const [error, setError] = useState(null);// Armazena possíveis erros (como falha na autenticação)
 
+    // useEffect roda ao montar o componente — responsável por buscar os dados iniciais
     useEffect(() => {
-        // Função para buscar o perfil do usuário
-        const fetchUserProfile = fetch('/api/user_profile', {
+        const fetchUserProfile = fetch('/api/user_profile', {// --- Requisição 1: Buscar informações do perfil ---
             method: 'GET',
-            credentials: 'include',
+            credentials: 'include',// Inclui cookies de sessão, se houver
         })
             .then((response) => {
                 if (!response.ok) {
@@ -30,7 +32,7 @@ function UserProfile() {
         })
             .then((response) => {
                 if (!response.ok) {
-                    // Se a biblioteca falhar, não é um erro fatal para o perfil
+                    // A falha na biblioteca não impede o carregamento do perfil
                     console.error("Erro ao buscar biblioteca:", response.statusText);
                     return [];
                 }
@@ -40,7 +42,7 @@ function UserProfile() {
                 setLibrary(data);
             });
 
-        // Executa as duas requisições em paralelo
+        // Executa ambas as requisições em paralelo e trata resultados
         Promise.all([fetchUserProfile, fetchUserLibrary])
             .then(() => setLoading(false))
             .catch((err) => {
@@ -49,6 +51,7 @@ function UserProfile() {
             });
     }, []);
 
+    // --- Exibições condicionais de status ---
     if (loading) {
         return (
             <div className="UserProfile">
@@ -69,11 +72,14 @@ function UserProfile() {
         );
     }
 
+    // --- Renderização principal ---
     return (
         <div className="UserProfile">
             <div className="profile-container">
+                {/* Cabeçalho do perfil com avatar e título */}
                 <div className="profile-header">
                     <div className="profile-avatar">
+                        {/* Gera um avatar simples com a inicial do nome do usuário */}
                         {userData?.username
                             ? userData.username.charAt(0).toUpperCase()
                             : 'U'}
@@ -81,6 +87,7 @@ function UserProfile() {
                     <h1>Perfil do Usuário</h1>
                 </div>
 
+                {/* Informações básicas do usuário */}
                 <div className="profile-info">
                     <div className="info-item">
                         <label>Nickname:</label>

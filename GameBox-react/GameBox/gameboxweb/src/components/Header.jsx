@@ -5,10 +5,10 @@ import logo from '../img/logo.png';
 
 function Header() {
   const navigate = useNavigate();
-  const savedUser = localStorage.getItem('user');
+  const savedUser = localStorage.getItem('user');// Recupera informações do usuário armazenadas localmente (login persistido)
   const user = savedUser ? JSON.parse(savedUser) : null;
 
-  const [showLogin, setShowLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);// Estados que controlam a exibição dos modais de login e registro
   const [showRegister, setShowRegister] = useState(false);
 
   // Estados do login
@@ -16,10 +16,12 @@ function Header() {
   const [senha, setSenha] = useState('');
 
   // Estados do cadastro
-  const [novoLogin, setNovoLogin] = useState('');  // Se você ainda quiser usar isso, mas não está no envio
+  const [novoLogin, setNovoLogin] = useState('');  // Nome de usuário no cadastro
   const [novaSenha, setNovaSenha] = useState('');
-  const [email, setEmail] = useState('');  // Usado para o email no cadastro
+  const [email, setEmail] = useState('');  // Email usado no cadastro
 
+  // --- Função de Logout ---
+  // Remove o usuário do localStorage e encerra a sessão no backend
   const handleLogout = async () => {
     try {
       // Chama a API de logout no backend para limpar a sessão
@@ -27,12 +29,15 @@ function Header() {
     } catch (error) {
       console.error('Erro ao fazer logout no backend:', error);
     } finally {
+      // Limpa o estado local e redireciona para a página inicial
       localStorage.removeItem('user');
       navigate('/'); // Redireciona para a home após o logout
       window.location.reload(); // Recarrega para atualizar o estado do componente
     }
   };
 
+  // --- Função de Login ---
+  // Envia os dados do formulário de login para o backend
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -44,15 +49,15 @@ function Header() {
         body: JSON.stringify({ email: login, senha }),
       });
 
-      // Verifica se há corpo antes de tentar converter em JSON
+      // Lida com o caso de o backend não retornar JSON válido
       const text = await response.text();
       const data = text ? JSON.parse(text) : null;
 
       if (data && data.success) {
         alert('Login bem-sucedido!');
-        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem('user', JSON.stringify(data.user));// Armazena usuário logado
         setShowLogin(false);
-        window.location.reload(); // Atualiza para "entrar" na conta
+        window.location.reload(); // Atualiza para refletir o login
       } else {
         alert(data?.message || 'Erro ao fazer login.');
       }
@@ -63,6 +68,8 @@ function Header() {
   };
 
 
+  // --- Função de Cadastro ---
+  // Envia os dados do formulário de registro para o backend
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -88,6 +95,7 @@ function Header() {
     <>
       <div className="Header">
         <div className="navBar">
+          {/* Logo clicável que redireciona para a página inicial */}
           <img
             className="logo"
             src={logo}
@@ -95,10 +103,11 @@ function Header() {
             onClick={() => navigate('/')}
             style={{ cursor: 'pointer' }}
           />
+          {/* Menu de navegação */}
           <ul>
             {user ? (
               <>
-                <li>Bem-vindo, {user.username || user.email}</li>
+                <li>Bem-vindo, {user.username || user.email}</li>{/* Exibe o nome do usuário logado e opção de sair */}
 
                 <li onClick={handleLogout}>
                   Sair
@@ -106,12 +115,14 @@ function Header() {
               </>
             ) : (
               <>
+                {/* Opções para criar conta ou fazer login */}
                 <li onClick={() => setShowRegister(true)}>Criar conta</li>
                 <li onClick={() => setShowLogin(true)}>Entrar</li>
               </>
             )}
+            {/* Links de navegação para outras páginas */}
             <li onClick={() => navigate('/catalogo')}>Jogos</li>
-            <li>Listas</li>
+            {/*<li>Listas</li>*/}
             <li onClick={() => navigate('/perfil')}>Perfil</li>
           </ul>
 
@@ -145,7 +156,7 @@ function Header() {
         </div>
       )}
 
-      {/* Modal de Criar Conta */}
+      {/* Modal de Cadastro */}
       {showRegister && (
         <div className="modal-overlay" onClick={() => setShowRegister(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
