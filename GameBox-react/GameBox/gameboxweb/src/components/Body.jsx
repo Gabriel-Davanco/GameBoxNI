@@ -25,6 +25,7 @@ function Body() {
     <div className="Body">
       <section className="WGamesContainer">
         <h1>Weekly Games</h1>
+
         {/* Usa o mesmo layout da página de catálogo */}
         <div className="grid-jogos">
           {jogos.map((jogo) => (
@@ -39,7 +40,6 @@ function Body() {
 
               {/* Botão de ação (biblioteca, favoritos, etc.) */}
               <div style={{ marginTop: '10px' }}>
-
                 <GameActionButton
                   gameId={jogo.id}
                   onActionSuccess={handleActionSuccess}

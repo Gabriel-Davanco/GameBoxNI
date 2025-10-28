@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Catalogo.css';
 import personaCapa from '../img/persona.png';
 
 function Catalogo() {
+  const navigate = useNavigate();
   const [jogos, setJogos] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [novoJogo, setNovoJogo] = useState({
@@ -12,6 +14,7 @@ function Catalogo() {
     avaliacao_media: '',
     image_url: ''
   });
+
   const [imgInfo, setImgInfo] = useState({ width: 0, height: 0, type: '' });
 
   const buscarJogos = async () => {
@@ -33,7 +36,7 @@ function Catalogo() {
   const handleAddJogo = async (e) => {
     e.preventDefault();
     const res = await fetch('http://localhost:5000/api/jogos', {
-      method:'POST',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         nome_jogo: novoJogo.nome_jogo,
@@ -45,7 +48,7 @@ function Catalogo() {
     });
     const data = await res.json();
     alert(data.message);
-    setNovoJogo({nome_jogo: '', ano_lancamento: '', plataforma: '', avaliacao_media: '', image_url: ''});
+    setNovoJogo({ nome_jogo: '', ano_lancamento: '', plataforma: '', avaliacao_media: '', image_url: '' });
     setImgInfo({ width: 0, height: 0, type: '' });
     buscarJogos();
   };
@@ -135,7 +138,8 @@ function Catalogo() {
       {/* Grade de jogos */}
       <div className="grid-jogos">
         {jogos.map((jogo) => (
-          <div className="card-jogo" key={jogo.id}>
+          <div className="card-jogo" key={jogo.id}
+            onClick={() => navigate(`/jogo/${jogo.id}`, { state: { jogo } })}>
             <img src={jogo.image_url || personaCapa} alt={jogo.nome_jogo} />
             <h3>{jogo.nome_jogo}</h3>
             <p>{jogo.plataforma} - {jogo.ano_lancamento}</p>
