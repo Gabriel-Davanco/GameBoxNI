@@ -25,9 +25,44 @@ O projeto é ideal para aprendizado de **Flask**, **React** e integração de si
   - SQLite (já incluído no projeto)
 
 ## Instalação
+
 Siga os passos abaixo para configurar o **GameBox** em sua máquina local.
 
 ### 1. Clone o repositório
 ```bash
-git clone https://github.com/Gabriel-Davanco/gameboxreact-flask
-cd gameboxreact-flask
+git clone https://github.com/Gabriel-Davanco/GameBoxNI.git
+cd GameBoxNI
+```
+### 2. Inicie o servidor
+```bash
+# Entre na pasta do backend, caso esteja separada
+cd backend  # se não tiver pasta separada, pule este comando
+
+# Crie e ative um ambiente virtual
+python -m venv venv
+source venv/bin/activate  # Linux / macOS
+venv\Scripts\activate     # Windows
+
+# Instale as dependências
+pip install -r requirements.txt
+
+# Inicialize o banco de dados
+python
+>>> from main import db, app
+>>> with app.app_context():
+...     db.create_all()
+...     exit()
+
+# Rode o servidor Flask
+python main.py
+```
+### 3. Inicie o frontend
+```bash
+# Entre na pasta do frontend, caso esteja separada
+cd frontend  # se não tiver pasta separada, pule este comando
+
+# Instale as dependências
+npm install
+
+# Rode o servidor React
+npm run dev
