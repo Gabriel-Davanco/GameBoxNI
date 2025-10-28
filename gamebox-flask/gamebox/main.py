@@ -138,7 +138,6 @@ def get_jogos_recentes():
             'image_url': getattr(jogo, 'image_url', None)
         })
     return jsonify(jogos_data)
-
 #----- COLOCAR IMAGEM NOS JOGOS QUE NÃO TEM -----
 @app.route("/api/jogos/<int:jogo_id>/imagem", methods=["PUT"])
 def atualizar_imagem_jogo(jogo_id):
