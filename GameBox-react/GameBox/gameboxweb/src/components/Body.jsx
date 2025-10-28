@@ -39,7 +39,8 @@ function Body() {
 
               {/* Botão de ação (biblioteca, favoritos, etc.) */}
               <div style={{ marginTop: '10px' }}>
-              <GameActionButton
+
+                <GameActionButton
                   gameId={jogo.id}
                   onActionSuccess={handleActionSuccess}
                 />
