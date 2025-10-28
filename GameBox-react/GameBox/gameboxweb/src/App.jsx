@@ -7,6 +7,8 @@ import Header from './components/Header'
 import Carousel from './components/Carousel'
 import Body from './components/Body'
 import Catalogo from './pages/Catalogo'
+import PagJogo from './pages/PagJogo'
+import UserProfile from './components/UserProfile'
 import './App.css'
 
 function App() {
@@ -17,15 +19,18 @@ function App() {
       <Header />
       <Routes>
         <Route
-        path="/"
-        element={
-          <>
-            <Carousel />
-            <Body />
-          </>
-        }
-      />
-      <Route path="/catalogo" element={<Catalogo />} />
+          path="/"
+          element={
+            <>
+              <Carousel />
+              <Body />
+            </>
+          }
+        />
+        <Route path="/catalogo" element={<Catalogo />} />
+        <Route path="/jogo/:id" element={<PagJogo />} />
+        <Route path="/perfil" element={<UserProfile />} />
+
       </Routes>
       {/*<div>
         <a href="https://vite.dev" target="_blank">

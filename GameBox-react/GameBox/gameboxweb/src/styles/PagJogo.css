@@ -1,0 +1,228 @@
+/* Variáveis de Cores */
+:root {
+    --bg-color: #0d0d0d;
+    --card-bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --secondary-text-color: #b0b0b0;
+    
+  }
+  
+  /* Estilo do Componente Body */
+  .Body {
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Container Principal do Jogo */
+  .GameContainer {
+    width: 100%;
+    margin-top: 5em;
+    max-width: 1200px; /* Limite de largura para o conteúdo */
+    display: flex;
+    gap: 40px;
+    padding: 0 20px;
+  }
+  
+  /* Conteúdo Principal (Capa e Detalhes) */
+  .MainContent {
+    flex: 3; /* Ocupa mais espaço */
+    display: flex;
+    gap: 40px;
+  }
+  
+  /* Coluna Esquerda: Imagem e Plataformas */
+  .ImageAndPlatforms {
+    flex-shrink: 0;
+    width: 270px;
+  }
+  
+  .GameCover {
+    width: 100%;
+    height: 390px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+  }
+  
+  /* Card de Plataformas */
+  .PlatformsCard {
+    background-color: var(--card-bg-color);
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .PlatformsCard h3 {
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+    color: var(--secondary-text-color);
+  
+  }
+  
+  .PlatformsCard ul {
+    padding: 0;
+    margin: 0;
+    display: block;
+  }
+  
+  .PlatformsCard li {
+    display: block;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+    color: var(--text-color);
+  }
+  
+  .PlatformEmoji {
+    margin-right: 10px;
+    font-size: 1.2em;
+  }
+  
+  /* Coluna Central: Texto do Jogo */
+  .GameText {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .TitleAndRelease {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 15px;
+  }
+  
+  .GameText h2 {
+    font-size: 3em;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1;
+  }
+  
+  .GameText .release {
+    font-size: 1.5em;
+    color: var(--secondary-text-color);
+    margin-left: 15px;
+  }
+  
+  .GameText .content {
+    line-height: 1.6;
+    font-size: 1em;
+    color: var(--secondary-text-color);
+    margin-bottom: 30px;
+  }
+  
+  /* Key Features */
+  .KeyFeatures h4 {
+    font-size: 1.2em;
+    color: var(--text-color);
+    margin-bottom: 10px;
+  }
+  
+  .KeyFeatures ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .KeyFeatures li {
+    position: relative;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    color: var(--secondary-text-color);
+  }
+  
+  .KeyFeatures li::before {
+    content: '•';
+    color: var(--text-color); /* Cor do bullet point */
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }
+  
+  /* Coluna Lateral: Jogos Recomendados */
+  .RecommendedContainer {
+    flex-shrink: 0;
+    width: 200px;
+    text-align: left;
+  }
+  
+  .RecommendedContainer h1 {
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--text-color);
+  }
+  
+  .RecommendedGamesList {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .RecommendedGameCover {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .RecommendedGameCover:hover {
+    transform: scale(1.05);
+  }
+  
+  
+  
+  .ReviewText {
+    width: 100%; /* Garante que ocupe a largura disponível */
+    max-width: 600px; /* Mantido, mas agora com width: 100% */
+    text-align: left;
+  }
+  
+  .ReviewText h2 {
+    margin: 0 0 0.4em 0;
+    font-size: 1.6em;
+    color: #ffcc00;
+  }
+  
+  .ReviewText .author {
+    font-style: italic;
+    margin-bottom: 1em;
+    color: #bbb;
+  }
+  
+  .ReviewText .content {
+    line-height: 1.6em;
+    font-size: 1em;
+    color: #ddd;
+  }
+  
+  .RecentReview {
+    width: 100%; /* Mudado para 100% para ocupar a largura sem estrapolar */
+    max-width:100%; /* Mantido, mas agora com width: 100% para centralizar */
+    margin: 0 auto 50px auto; /* Centraliza automaticamente */
+    display: flex;
+    margin-top: 1em;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2em;
+    background-color: #14181c;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .RecentReview:hover {
+  transform: scale(1.005);
+  }

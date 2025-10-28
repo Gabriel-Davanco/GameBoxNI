@@ -20,55 +20,68 @@ function Header() {
   const [novaSenha, setNovaSenha] = useState('');
   const [email, setEmail] = useState('');  // Usado para o email no cadastro
 
-  const handleLoginSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await fetch('http://localhost:5000/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email: login, senha }),
-    });
-
-    // Verifica se há corpo antes de tentar converter em JSON
-    const text = await response.text();
-    const data = text ? JSON.parse(text) : null;
-
-    if (data && data.success) {
-      alert('Login bem-sucedido!');
-      localStorage.setItem('user', JSON.stringify(data.user));
-      setShowLogin(false);
-      window.location.reload(); // Atualiza para "entrar" na conta
-    } else {
-      alert(data?.message || 'Erro ao fazer login.');
+  const handleLogout = async () => {
+    try {
+      // Chama a API de logout no backend para limpar a sessão
+      await fetch('/api/logout', { method: 'POST', credentials: 'include' });
+    } catch (error) {
+      console.error('Erro ao fazer logout no backend:', error);
+    } finally {
+      localStorage.removeItem('user');
+      navigate('/'); // Redireciona para a home após o logout
+      window.location.reload(); // Recarrega para atualizar o estado do componente
     }
+  };
 
-  } catch (error) {
-    alert('Erro ao conectar: ' + error.message);
-  }
-};
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: login, senha }),
+      });
+
+      // Verifica se há corpo antes de tentar converter em JSON
+      const text = await response.text();
+      const data = text ? JSON.parse(text) : null;
+
+      if (data && data.success) {
+        alert('Login bem-sucedido!');
+        localStorage.setItem('user', JSON.stringify(data.user));
+        setShowLogin(false);
+        window.location.reload(); // Atualiza para "entrar" na conta
+      } else {
+        alert(data?.message || 'Erro ao fazer login.');
+      }
+
+    } catch (error) {
+      alert('Erro ao conectar: ' + error.message);
+    }
+  };
 
 
   const handleRegisterSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await fetch('http://localhost:5000/api/registro', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, senha: novaSenha, username: novoLogin }),
-    });
-    const data = await response.json();
-    if (data.success) {
-      alert('Cadastro bem-sucedido!');
-      setShowRegister(false);
-    } else {
-      alert(data.message);
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/registro', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, senha: novaSenha, username: novoLogin }),
+      });
+      const data = await response.json();
+      if (data.success) {
+        alert('Cadastro bem-sucedido!');
+        setShowRegister(false);
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      alert('Erro ao conectar: ' + error.message);
     }
-  } catch (error) {
-    alert('Erro ao conectar: ' + error.message);
-  }
-};
+  };
 
 
   return (
@@ -76,32 +89,31 @@ function Header() {
       <div className="Header">
         <div className="navBar">
           <img
-          className="logo"
-          src={logo}
-          alt="Logo"
-          onClick={() => navigate('/')}
-          style={{ cursor: 'pointer' }}
-      />
+            className="logo"
+            src={logo}
+            alt="Logo"
+            onClick={() => navigate('/')}
+            style={{ cursor: 'pointer' }}
+          />
           <ul>
-  {user ? (
-    <>
-      <li>Bem-vindo, {user.username || user.email}</li>
-      <li onClick={() => {
-        localStorage.removeItem('user');
-        window.location.reload();
-      }}>
-        Sair
-      </li>
-    </>
-  ) : (
-    <>
-      <li onClick={() => setShowRegister(true)}>Criar conta</li>
-      <li onClick={() => setShowLogin(true)}>Entrar</li>
-    </>
-  )}
-  <li onClick={() => navigate('/catalogo')}>Jogos</li>
-  <li>Listas</li>
-</ul>
+            {user ? (
+              <>
+                <li>Bem-vindo, {user.username || user.email}</li>
+
+                <li onClick={handleLogout}>
+                  Sair
+                </li>
+              </>
+            ) : (
+              <>
+                <li onClick={() => setShowRegister(true)}>Criar conta</li>
+                <li onClick={() => setShowLogin(true)}>Entrar</li>
+              </>
+            )}
+            <li onClick={() => navigate('/catalogo')}>Jogos</li>
+            <li>Listas</li>
+            <li onClick={() => navigate('/perfil')}>Perfil</li>
+          </ul>
 
         </div>
       </div>

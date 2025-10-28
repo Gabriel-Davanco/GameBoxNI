@@ -3,12 +3,10 @@ import '../styles/Carousel.css';
 
 import img1 from '../img/background.png';
 import img2 from '../img/backgroundMine.png';
-import img3 from '../img/hk.jpg';
-import img4 from '../img/celeste.webp';
-import img5 from '../img/ds.jpg';
+import img3 from '../img/bgHK.png';
 
 function Carousel() {
-  const imagens = [img1, img2, img3, img4, img5];
+  const imagens = [img1, img2, img3];
   const [indexAtual, setIndexAtual] = useState(0);
   const intervaloRef = useRef(null);
   const timeTroca = 5000; // tempo em milissegundos
