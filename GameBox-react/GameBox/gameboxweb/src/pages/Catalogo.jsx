@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/Catalogo.css';
 import personaCapa from '../img/persona.png';
 
+// Componente responsável por exibir o catálogo completo de jogos.
+// Permite visualizar, pesquisar e cadastrar novos jogos (com suporte a imagem por URL).
 function Catalogo() {
   const navigate = useNavigate();
-  const [jogos, setJogos] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [novoJogo, setNovoJogo] = useState({
+  const [jogos, setJogos] = useState([]);// Estado que armazena todos os jogos buscados do backend
+  const [searchTerm, setSearchTerm] = useState('');// Estado que controla o termo digitado na barra de pesquisa
+  const [novoJogo, setNovoJogo] = useState({// Estado do formulário de novo jogo
     nome_jogo: '',
     ano_lancamento: '',
     plataforma: '',
@@ -15,26 +17,32 @@ function Catalogo() {
     image_url: ''
   });
 
-  const [imgInfo, setImgInfo] = useState({ width: 0, height: 0, type: '' });
+  const [imgInfo, setImgInfo] = useState({ width: 0, height: 0, type: '' });// Armazena informações sobre a imagem inserida (largura, altura e tipo)
 
+  // --- Função para buscar todos os jogos do banco ---
   const buscarJogos = async () => {
     const res = await fetch('http://localhost:5000/api/jogos');
     const data = await res.json();
     setJogos(data);
   };
 
+  // Executa a busca inicial dos jogos ao carregar a página
   useEffect(() => {
     buscarJogos();
   }, []);
 
+  // --- Função de pesquisa de jogos ---
   const handleSearch = async () => {
     const res = await fetch(`http://localhost:5000/api/jogos/pesquisa?q=${searchTerm}`);
     const data = await res.json();
     setJogos(data);
   };
 
+  // --- Função de cadastro de novo jogo ---
   const handleAddJogo = async (e) => {
     e.preventDefault();
+
+    // Envia os dados para o backend com os tipos corretos
     const res = await fetch('http://localhost:5000/api/jogos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -48,20 +56,24 @@ function Catalogo() {
     });
     const data = await res.json();
     alert(data.message);
+
+    // Reseta o formulário e limpa informações da imagem
     setNovoJogo({ nome_jogo: '', ano_lancamento: '', plataforma: '', avaliacao_media: '', image_url: '' });
     setImgInfo({ width: 0, height: 0, type: '' });
-    buscarJogos();
+    buscarJogos();// Atualiza a lista de jogos na tela
   };
 
+  // --- Verificação e leitura de informações da imagem via URL ---
   const handleImageChange = (e) => {
     const url = e.target.value;
     setNovoJogo({ ...novoJogo, image_url: url });
 
-    if (!url) {
+    if (!url) {// Se o campo for apagado, limpa o preview
       setImgInfo({ width: 0, height: 0, type: '' });
       return;
     }
 
+    // Cria um objeto Image para verificar as dimensões e tipo
     const img = new Image();
     img.onload = () => {
       const typeMatch = url.match(/\.(\w+)$/);
@@ -77,6 +89,7 @@ function Catalogo() {
     img.src = url;
   };
 
+  // --- Renderização principal ---
   return (
     <div className="catalogo-container">
       <h1>Catálogo de Jogos</h1>
@@ -118,6 +131,7 @@ function Catalogo() {
           value={novoJogo.image_url}
           onChange={handleImageChange}
         />
+        {/* Exibe informações da imagem se for válida */}
         {imgInfo.width > 0 && (
           <p>Proporção: {imgInfo.width}x{imgInfo.height} | Tipo: {imgInfo.type}</p>
         )}

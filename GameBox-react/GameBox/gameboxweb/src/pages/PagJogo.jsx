@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import '../styles/PagJogo.css';
 import personaCapa from '../img/persona.png';
 
+// Texto padrão para quando o jogo não possui descrição cadastrada no banco
 const DEFAULT_DESCRIPTION = `
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse maximus nibh aliquam, faucibus elit non, dictum nunc. Nam egestas aliquet nisl, in suscipit lorem dapibus at. Quisque eu gravida libero, sit amet mollis dolor. Nullam iaculis massa gravida mi consequat, et auctor ligula aliquet. Cras lacus urna, tempor ut gravida in, rutrum id nisi. Proin mollis quis nunc a accumsan. Quisque aliquam tempor sodales. Cras dignissim, eros vel posuere tincidunt, metus justo posuere tortor, in tempor enim augue ut odio. Donec venenatis in nisi sit amet tincidunt.
 
@@ -13,11 +14,12 @@ Duis ut cursus ligula. Vestibulum faucibus pretium commodo. Morbi arcu est, laci
 `.trim();
 
 function PagJogo() {
-  const { id } = useParams();
-  const [gameData, setGameData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { id } = useParams();// useParams() captura o ID do jogo a partir da URL
+  const [gameData, setGameData] = useState(null);// Dados do jogo
+  const [loading, setLoading] = useState(true);// Indicador de carregamento
+  const [error, setError] = useState(null);// Mensagens de erro (ex: jogo não encontrado)
 
+  // Busca os dados do jogo ao montar o componente
   useEffect(() => {
     fetch(`http://localhost:5000/api/jogos/${id}`)
       .then(response => {
@@ -34,6 +36,7 @@ function PagJogo() {
       });
   }, [id]);
 
+  // Função que adiciona o jogo à biblioteca do usuário logado
   const handleAddToLibrary = async () => {
     try {
       const response = await fetch('http://localhost:5000/api/biblioteca/adicionar', {
@@ -43,6 +46,7 @@ function PagJogo() {
         body: JSON.stringify({ jogo_id: id }),
       });
       const data = await response.json();
+      // Exibe feedback conforme o resultado da requisição
       if (response.ok) {
         alert(data.mensagem || 'Jogo adicionado com sucesso!');
       } else {
@@ -53,15 +57,16 @@ function PagJogo() {
     }
   };
 
+  // Estados de carregamento e erro
   if (loading) return <div className="Body">Carregando...</div>;
   if (error) return <div className="Body">{error}</div>;
 
-  // descrição: usa a do banco se existir; senão, usa a DEFAULT_DESCRIPTION
+  // Define a descrição: usa a do banco se existir; caso contrário, usa a padrão
   const descricaoToShow = (gameData?.descricao && gameData.descricao.trim().length > 0)
     ? gameData.descricao
     : DEFAULT_DESCRIPTION;
 
-  // plataformas (string "PC, PS4" -> array)
+  // Converte a string de plataformas em um array (ex: "PC, PS4" → ["PC", "PS4"])
   const plataformas = (gameData?.plataforma || '')
     .split(',')
     .map(p => p.trim())
@@ -72,7 +77,7 @@ function PagJogo() {
       <section className="GameContainer">
         {/* Coluna Principal */}
         <div className="MainContent">
-          {/* Imagem e Plataformas */}
+          {/* Imagem principal e lista de plataformas */}
           <div className="ImageAndPlatforms">
             <img
               src={gameData.image_url || personaCapa}
@@ -94,7 +99,7 @@ function PagJogo() {
             </div>
           </div>
 
-          {/* Texto e Avaliações */}
+          {/* Informações do jogo e descrição */}
           <div className="GameText">
             <div className="TitleAndRelease">
               <h2>{gameData.nome_jogo}</h2>
@@ -111,7 +116,7 @@ function PagJogo() {
               <p key={i} className="content">{para}</p>
             ))}
 
-            {/* Reviews simuladas (mantidas) */}
+            {/* Sessão de avaliações (simulada) */}
             <section className="RecentReviewsContainer">
               <h1>Recent Reviews</h1>
 
@@ -142,7 +147,7 @@ function PagJogo() {
           </div>
         </div>
 
-        {/* Coluna lateral — Recomendados */}
+        {/* ===== Coluna lateral — Jogos recomendados ===== */}
         <div className="RecommendedContainer">
           <h1>Recommended Games</h1>
           <div className="RecommendedGamesList">
